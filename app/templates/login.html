@@ -1,0 +1,394 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>{{ title }}</title>
+<link rel="stylesheet" href="/static/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css"
+	href="/static/css/jquery.ui.combify.css" />
+<link rel="stylesheet" type="text/css"
+	href="/static/css/stylecheckbox.css" />
+<script src="/static/js/jquery-1.10.2.js"></script>
+<script src="/static/js/jquery-ui.js"></script>
+<link rel="stylesheet" href="/static/css/filtergrid.css">
+<script src="/static/js/tablefilter.js"></script>
+<link rel="stylesheet" href="/static/css/search.css">
+<link href="/static/css/jquerysctipttop.css" rel="stylesheet"
+	type="text/css">
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script src="/static/js/jquery-ui.min.js"></script>
+<script src="/static/js/jquery.ui.combify.js"></script>
+<script type="text/javascript" src="/static/js/paging.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="selectview">
+		<div id="header">
+			<h1>XML Configuration</h1>
+		</div>
+	</div>
+	<div id="hello" title="Insert New Column into Config Table">
+		<form name="forminsert" action="{{ url_for('insert') }}" method="post">
+			
+			<center>Enter TableName:<div class="select-editable">
+			<select name="tselect" id="tselect"  onchange="this.nextElementSibling.value=this.value"></select>
+			<input type="text" name="format" value="" />
+				</div>
+				</center><input type="checkbox" name="splcol" id="splcol" class="css-checkbox" onclick='handlesplcol(this);'/><label for="splcol" class="css-label">Enable Special Column</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="onetomany" id="onetomany" class="css-checkbox" onclick='handleClick(this);'/><label for="onetomany" class="css-label">OneToMany</label><br>
+			<br/> Enter ColumnName:<input type="text" name="colname"
+				id="colname" size="30" placeholder="Enter the column name" /><br />
+			<br /> Enter DataType:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+				type="text" name="datatype" id="datatype" size="30"
+				placeholder="Enter the Datatype" /><br /> <br /> Selected
+			Xpath:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
+				name="xpath" id="xpath" size="30" /><br /> <br />
+			<center>
+				<input type="submit" name="popupsubmit" id="popupsubmit"
+					value="Add New Column" onclick="Clear()" /> <input type="reset" name="reset"
+					id="reset" value="Reset" />
+			</center>
+		</form>
+	</div>
+	<button id="isubmit" class="btn btn-info"
+		disabled="disabled">Insert New Column into Config Table</button>
+
+	<div id="tableview">
+		<table id="t01">
+			<caption id="ucaption">
+				<center>
+					<strong>Xpaths(From User Upload)</strong>
+				</center>
+			</caption>
+			<tr>
+				<th></th>
+				<th>Xpath</th>
+			</tr>
+			{% for o in oxpath %}
+			<tr>
+				<td><input type="radio" name="uschecked" id="uschecked {{ o }}"
+					value="{{ o }}" onclick="func('uschecked {{ o }}')" /></td>
+				<td>{{ o }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	<div id="noofrows">
+		<h4>
+			<strong>Total Number of Xpaths:&nbsp;&nbsp;&nbsp;{{
+				noofxpath }}</strong>
+		</h4>
+	</div>
+	<div id="staticview">
+		<table id="t02" cellspacing="10">
+			<caption id="scaption">
+				<center>
+					<strong>Xpaths(From ConfigTable(DB))</strong>
+				</center>
+			</caption>
+			<tr>
+				<th></th>
+				<th>TableName</th>
+				<th>ColumnName</th>
+				<th>DataType</th>
+				<th>Xpath</th>
+			</tr>
+			{% for row in rows %}
+			<tr>
+				<td><input type="radio" name="dbchecked"
+					id="dbchecked {{ row[3] }}" value="{{ row[3] }}"
+					onclick="func1('dbchecked {{ row[3] }}');func2('{{ row[0] }}','{{ row[1] }}','{{ row[2] }}','{{ row[3] }}')" /></td>
+				<td>{{ row[0] }}</td>
+				<td>{{ row[1] }}</td>
+				<td>{{ row[2] }}</td>
+				<td>{{ row[3] }}</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+	<div id="noofentries">
+		<h4>
+			<strong>Total Number of Rows:&nbsp;&nbsp;&nbsp;{{ noofrows
+				}}</strong>
+		</h4>
+	</div>
+	<div id="flashmessages">
+		{% with messages = get_flashed_messages() %} {% if messages %}
+		<ul class=flashes>
+			{% for message in messages %}
+			<li><h4>
+					<strong>{{ message }} </strong>
+				</h4></li> {% endfor %}
+		</ul>
+		{% endif %} {% endwith %}
+	</div>
+	<div id="update" title="Update Config Table">
+		<form name="formupdate" action="{{ url_for('update') }}" method="post">
+			Table Name:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="tname"
+				size="30" id="tname" readonly="readonly" /><br /> <br /> Column
+			Name:&nbsp;<input type="text" name="cname" size="30" id="cname" readonly="readonly" /><br />
+			<br /> Data Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+				type="text" name="dtype" size="30" id="dtype" readonly="readonly" /><br /> <br /> Old
+			Xpath:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
+				name="oxpath" size="30" id="oxpath" readonly="readonly"><br />
+			<br /> New Xpath:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+				type="text" name="nxpath" size="30" id="nxpath" /><br /> <br />
+			<center>
+				<input type="submit" name="usubmit" id="usubmit" width="10"
+					value="Update" onclick="clear()" />
+			</center>
+		</form>
+	</div>
+	<button id="Open" class="btn btn-warning" disabled="disabled">Update
+		Config Table</button>
+	<div id="opendetails" title="Target Table Details">
+		<form name="formupdatetable" action="{{ url_for('updatetable') }}"
+			method="post">
+			Table Name:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="tname1"
+				size="30" id="tname1" readonly="readonly" /><br /> <br /><input type="hidden" name="hiddenColumn" id="hiddenColumn"> Column
+			Name:&nbsp;<input type="text" name="cname1" size="30" id="cname1"/><br />
+			<br /><input type="hidden" name="hiddentype" id="hiddentype"> Data Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+				type="text" name="dtype1" size="30" id="dtype1" /><br /> <br />
+			Xpath:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+				type="text" name="sxpath" size="30" id="sxpath" readonly="readonly" /><br />
+			<br />
+			<center>
+				<input type="submit" name="osubmit" id="osubmit" width="10"
+					value="Update Other details" onclick="clear()" />
+			</center>
+		</form>
+	</div>
+	<button id="delete" onclick="Clear()" class="btn btn-danger"
+		disabled="disabled">Delete</button>
+	<div id="deletedetails" title="Target Table Details">
+		<form name="formdelete" action="{{ url_for('deleterow') }}"
+			method="post">
+			Table Name:&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="tname2"
+				size="30" id="tname2" readonly="readonly" /><br /> <br /> Column
+			Name:&nbsp;<input type="text" name="cname2" size="30" id="cname2"
+				readonly="readonly" /><br /> <br /> Data
+			Type:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
+				name="dtype2" size="30" id="dtype2" readonly="readonly" /><br /> <br />
+			Xpath:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+				type="text" name="dxpath" size="30" id="dxpath" readonly="readonly" /><br />
+			<br />
+			<center>
+				<input type="submit" name="osubmit" id="osubmit" width="10"
+					value="Confirm delete" />
+			</center>
+		</form>
+	</div>
+
+	<script>
+		jQuery.fn.filterByText = function(textbox, selectSingleMatch) {
+			return this.each(function() {
+				var select = this;
+				var options = [];
+				$(select).find('option').each(function() {
+					options.push({
+						value : $(this).val(),
+						text : $(this).text()
+					});
+				});
+				$(select).data('options', options);
+				$(textbox).bind(
+						'change keyup',
+						function() {
+							var options = $(select).empty().data('options');
+							var search = $.trim($(this).val());
+							var regex = new RegExp(search, "gi");
+
+							$.each(options, function(i) {
+								var option = options[i];
+								if (option.text.match(regex) !== null) {
+									$(select).append(
+											$('<option>').text(option.text)
+													.val(option.value));
+								}
+							});
+							if (selectSingleMatch === true
+									&& $(select).children().length === 1) {
+								$(select).children().get(0).selected = true;
+							}
+						});
+			});
+		};
+		function Clear() {
+			clearRadioGroup("uschecked");
+			clearRadioGroup("dbchecked");
+		}
+		function clearRadioGroup(GroupName) {
+			var ele = document.getElementsByName(GroupName);
+			for (var i = 0; i < ele.length; i++)
+				ele[i].checked = false;
+		}
+		function func(radio) {
+			var onetomany;
+			var splcol;
+			var xpath=document.getElementById(radio).value;
+			var elementofxpath=xpath.split("/")
+			if(elementofxpath.length == 4){
+				onetomany = "/" + elementofxpath[1] + "/" + elementofxpath[2]
+			}
+			else if(elementofxpath.length == 5){
+				onetomany="/"+ elementofxpath[1] + "/" + elementofxpath[2] + "/" + elementofxpath[3] 
+				splcol = "/" + elementofxpath[3] + "/" + elementofxpath[4] 
+			}
+			else if(elementofxpath.length == 6){
+				onetomany="/"+ elementofxpath[1] + "/" + elementofxpath[2] + "/" + elementofxpath[3] + "/" + elementofxpath[4] 
+				splcol = "/" + elementofxpath[3] + "/" + elementofxpath[4] + "/" + elementofxpath[5]
+			}
+			else if(elementofxpath.length == 7){
+				onetomany="/"+ elementofxpath[1] + "/" + elementofxpath[2] + "/" + elementofxpath[3] + "/" + elementofxpath[4] + "/" + elementofxpath[5]
+				splcol = "/" + elementofxpath[4] + "/" + elementofxpath[5] + "/" + elementofxpath[6]
+			}
+			else if(elementofxpath.length == 8){
+				onetomany="/"+ elementofxpath[1] + "/" + elementofxpath[2] + "/" + elementofxpath[3] + "/" + elementofxpath[4] + "/" + elementofxpath[5] + "/" + elementofxpath[6]
+				splcol = "/" + elementofxpath[5] + "/" + elementofxpath[6] + "/" + elementofxpath[7]
+			}
+			document.getElementById('xpath').value = xpath;
+			document.getElementById('nxpath').value = document
+					.getElementById(radio).value;
+			document.getElementById('onetomany').value = onetomany;
+			document.getElementById('splcol').value = splcol;
+			document.getElementById("isubmit").disabled = false;
+			
+		}
+		function handlesplcol(cb){
+			document.getElementById("onetomany").disabled = true;
+			if(cb.checked){
+				document.getElementById('xpath').value= cb.value;
+			}
+		}
+		function handleClick(cb) {
+			document.getElementById("splcol").disabled = true;
+			if(cb.checked){
+				document.getElementById('xpath').value= cb.value;
+			}
+		}
+		function func1(radio) {
+			document.getElementById('oxpath').value = document
+					.getElementById(radio).value;
+			document.getElementById("Open").disabled = false;
+			document.getElementById("delete").disabled = false;
+		}
+		function func2(tname, cname, dtype, xpath) {
+			document.getElementById('tname').value = tname;
+			document.getElementById('cname').value = cname;
+			document.getElementById('dtype').value = dtype;
+			document.getElementById('tname1').value = tname;
+			document.getElementById('hiddenColumn').value = cname;
+			document.getElementById('cname1').value = cname;
+			document.getElementById('hiddentype').value = dtype;
+			document.getElementById('dtype1').value = dtype;
+			document.getElementById('tname2').value = tname;
+			document.getElementById('cname2').value = cname;
+			document.getElementById('dtype2').value = dtype;
+			document.getElementById('dxpath').value = xpath;
+			document.getElementById('sxpath').value = xpath;
+		}
+		setFilterGrid("t01");
+		setFilterGrid("t02");
+		$(function() {
+			$("form").bind("keypress", function(e) {
+				if (e.keyCode == 13)
+					return false;
+			});
+			var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+			var submit_form = function(e) {
+			      $.getJSON($SCRIPT_ROOT + '/getSelectedTable', {
+			        a: $('input[name="uschecked"]:checked').val(),
+			        
+			      }, function(data) {
+			    	  if((data.result[0])!=null){
+				    	  var option = document.createElement("option");
+				    	  option.text = data.result[0];
+				    	  option.value = data.result[0];
+				    	  var select = document.getElementById("tselect");
+				    	  select.appendChild(option);
+			    	  }
+			    	 if((data.result[1])!=null){
+				    	  var option = document.createElement("option");
+				    	  option.text = data.result[1];
+				    	  option.value = data.result[1];
+				    	  var select = document.getElementById("tselect");
+				    	  select.appendChild(option);
+			    	  }
+			    	 if((data.result[2])!=null){
+				    	  var option = document.createElement("option");
+				    	  option.text = data.result[2];
+				    	  option.value = data.result[2];
+				    	  var select = document.getElementById("tselect");
+				    	  select.appendChild(option);
+			    	  }
+			    	 if((data.result[3])!=null){
+				    	  var option = document.createElement("option");
+				    	  option.text = data.result[3];
+				    	  option.value = data.result[3];
+				    	  var select = document.getElementById("tselect");
+				    	  select.appendChild(option);
+			    	  }
+// 			          $('#tselect').val(data.result);
+			      });
+			      return false;
+			    };
+		   $('#isubmit').bind('click', submit_form);
+
+		});
+		$(document)
+				.ready(
+						function() {
+							$("#hello").dialog({
+								autoOpen : false,
+								maxWidth : 500,
+								maxHeight : 350,
+								width : 500,
+								height : 350
+							});
+							$("#isubmit").click(function() {
+								$("#hello").dialog("open");
+							});
+							$("#update").dialog({
+								autoOpen : false,
+								maxWidth : 500,
+								maxHeight : 350,
+								width : 500,
+								height : 350
+							});
+							$("#deletedetails").dialog({
+								autoOpen : false,
+								maxWidth : 500,
+								maxHeight : 350,
+								width : 500,
+								height : 350
+							});
+							$("#delete").click(function() {
+								$("#deletedetails").dialog("open");
+							});
+							$("#opendetails").dialog({
+								autoOpen : false,
+								maxWidth : 500,
+								maxHeight : 350,
+								width : 500,
+								height : 350
+							});
+							$("#Open")
+									.click(
+											function() {
+												if (($("input[name='uschecked']:checked")
+														.val())
+														&& ($("input[name='dbchecked']:checked")
+																.val())) {
+													$("#update").dialog("open");
+												} else if ($(
+														"input[name='dbchecked']:checked")
+														.val()) {
+													$("#opendetails").dialog(
+															"open");
+												}
+											});
+							
+						});
+	</script>
+
+</body>
+</html>

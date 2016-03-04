@@ -1,0 +1,176 @@
+#header {
+	background-color: steelblue;
+	color: white;
+	text-align: left;
+	padding: 5px;
+}
+
+body {
+	font-family: sans-serif;
+}
+label {margin-right:20px;}
+#tableview {
+	position: absolute;
+	top: 115px;
+	left: 120px;
+	right: 850px;
+	border-radius: 15px;
+	border: 2px solid #73AD21;
+	padding: 20px;
+	width: 500px;
+	height: 280px;
+	overflow-y: scroll;
+}
+
+#staticview {
+	position: absolute;
+	top: 115px;
+	right: 60px;
+	left: 750px;
+	border-radius: 15px;
+	border: 2px solid #73AD21;
+	padding: 20px;
+	width: 600px;
+	height: 280px;
+	overflow-y: scroll;
+}
+
+#isubmit {
+	position: absolute;
+	top: 450px;
+	left: 250px;
+}
+
+#open {
+	position: absolute;
+	top: 450px;
+	left: 950px;
+}
+
+#navigation{
+	position: absolute;
+	top: 550px;
+	left: 950px;
+}
+
+#delete {
+	position: absolute;
+	top: 450px;
+	left: 1125px;
+}
+td {
+	padding-top: .5em;
+	padding-bottom: .5em;
+}
+
+table#t01 tr:nth-child(even) {
+	background-color: #c7c7fe;
+}
+
+table#t01 tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+table#t01 th {
+	background-color: steelblue;
+	color: white;
+	text-align: center;
+}
+
+table#t02 tr:nth-child(even) {
+	background-color: #c7c7fe;
+}
+
+table#t02 tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+table#t02 th {
+	background-color: steelblue;
+	color: white;
+}
+
+#hello {
+	background-color: #D7D1F8;
+}
+
+#update {
+	background-color: #D7D1F8;
+}
+
+#opendetails {
+	background-color: #D7D1F8;
+}
+
+#deletedetails {
+	background-color: #D7D1F8;
+}
+
+#noofrows {
+	position: absolute;
+	top: 400px;
+	left: 250px;
+}
+
+#noofentries {
+	position: absolute;
+	top: 400px;
+	left: 950px;
+}
+
+#flashmessages {
+	position: absolute;
+	top: 525px;
+	left: 500px;
+	color:#ff925e;
+}
+
+.ui-dialog-titlebar {
+	background-color: steelblue;
+	color: white;
+}
+
+#field {
+	position: absolute;
+	top: 620px;
+	background-color: steelblue;
+	padding: 20px;
+	width: 1365px;
+	height: 30px;
+}
+
+#ucaption {
+	color: black;
+}
+
+#scaption {
+	color: black;
+}
+ .select-editable {
+     position:relative;
+     background-color:white;
+     border:solid grey 1px;
+     width:120px;
+     height:18px;
+ }
+ .select-editable select {
+     position:absolute;
+     top:0px;
+     left:0px;
+     font-size:14px;
+     border:none;
+     width:120px;
+     margin:0;
+ }
+ .select-editable input {
+     position:absolute;
+     top:0px;
+     left:0px;
+     width:100px;
+     padding:1px;
+     font-size:12px;
+     border:none;
+ }
+ .select-editable select:focus, .select-editable input:focus {
+     outline:none;
+ }

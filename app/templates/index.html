@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>{{ title }}</title>
+<script type="text/javascript" src="/static/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="/static/js/xonomy.js"></script>
+<link type="text/css" rel="stylesheet" href="/static/css/xonomy.css"/>
+<link rel="stylesheet" href="/static/css/bootstrap.min.css">
+<script src="/static/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+	<div id="header">
+		<h1>XML upload</h1>
+	</div>
+	<form action="{{ url_for('xmlconfig') }}" method="post">
+		<div id="div0">
+			<b>Choose Product:</b> <select>
+				<option value="RQ">RQ</option>
+				<option value="PNC ">PNC</option>
+				<option value="EDI ">EDI</option>
+				<option value="S/H">S/H</option>
+			</select>
+		</div>
+		<div id ="div1">
+			<b>Choose XML file:</b><input type="file" onchange="onFileSelected(event)"
+				name="xmlfile" id="xmlfile" value="{{ request.form.xmlfile }}">
+		</div>
+		
+		<div id ="div2">
+			<div id="div3"></div>
+			<input type="submit" id="submit" name="submit"  class="btn btn-info" value="Submit" disabled="disabled"/>
+		</div>
+	</form>
+
+	<script>
+	var xmlfile= " ";
+	function onFileSelected(event)
+	{
+				var selectedFile = event.target.files[0];
+				var reader = new FileReader();
+
+				var result = document.getElementById("result");
+
+				reader.onload = function(event) {
+					xmlfile = event.target.result;
+					var docSpec={
+						elements: {
+						"book": {
+							collapsed: function(jsElement){return true;}
+						},
+						"dealer":{
+							collapsed: function(jsElement){return true;}
+						}
+						}
+					};
+					var editor=document.getElementById("div3");
+					Xonomy.render(xmlfile, editor, docSpec);
+					Xonomy.setMode("nerd")
+				};
+
+				reader.readAsText(selectedFile);
+				document.getElementById("submit").disabled = false;
+	}
+	
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bookstore>
+
+<book>
+  <bookid>1</bookid>
+  <bookname>Book1</bookname>
+  <author>Author1</author>
+  <bookyear>2005</bookyear>
+  <price>30.00</price>
+  <bookinfo>
+	  <noofpages>50</noofpages>
+	  <publisher>publisher1</publisher>
+	  <edition>1</edition>
+  </bookinfo> 
+  <quantity>100</quantity>
+  <maxdiscountpct>10</maxdiscountpct>
+</book>
+
+
+<dealer>
+  <id>1</id>
+  <name>Dealer1</name>
+  <bookpublished>bookpublished1</bookpublished>
+  <branch>2005</branch>
+  <dealerpartner>Dealer3</dealerpartner>
+  <address id="A">
+  	<location id="LocA">
+  		<doorno>AAA</doorno>
+  		<flatname>AAA</flatname>
+  		<street>AAA</street>
+  	</location>
+  	<city>AAAA</city>
+  	<district>AAA</district>
+  	<state>AAAA</state>
+  	<country>AAA</country>
+  </address>
+  <address id="B">
+  	<location id="LocB">
+  		<doorno>BBB</doorno>
+  		<flatname>BBB</flatname>
+  		<street>BBB</street>
+  	</location>
+  	<city>BBB</city>
+  	<district>BBB</district>
+  	<state>BBB</state>
+  	<country>BBB</country>
+  </address>
+  <address id="C">
+  	<location id="LocC">
+  		<doorno>CCC</doorno>
+  		<flatname>CCC</flatname>
+  		<street>CCC</street>
+  	</location>
+  	<city>CCC</city>
+  	<district>CCC</district>
+  	<state>CCC</state>
+  	<country>CCC</country>
+  </address>
+</dealer>
+
+
+
+</bookstore>

@@ -1,0 +1,32 @@
+#header {
+	background-color: steelblue;
+	color: white;
+	text-align: left;
+	padding: 5px;
+}
+
+#div0 {
+	position: absolute;
+	top: 140px;
+	left: 10px;
+}
+
+#div1 {
+	position: absolute;
+	top: 200px;
+	left: 10px;
+}
+
+#div2 {
+	position: absolute;
+	top: 120px;
+	left: 350px;
+}
+#submit{
+	position: absolute;
+	top: 120px;
+	left: 550px;
+}
+/* #path{ */
+/* 	display:none; */
+/* } */

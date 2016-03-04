@@ -1,0 +1,100 @@
+#header {
+	background-color: steelblue;
+	color: white;
+	text-align: left;
+	padding: 5px;
+}
+#selectview{
+	position: absolute;
+	top: 100px;
+	right: 60px;
+	left: 500px;
+}
+#tabledetails{
+	position:absolute;
+	top:150px;
+	left:50px;
+	border-radius: 15px;
+	border: 2px solid #73AD21;
+	padding: 20px;
+	width: 600px;
+	height: 300px;
+	overflow-y: scroll;
+}
+#configtabledetails {
+	position: absolute;
+	top: 150px;
+	left: 720px;
+	border-radius: 15px;
+	border: 2px solid #73AD21;
+	padding: 20px;
+	width: 600px;
+	height: 300px;
+	overflow-y: scroll;
+}
+#Rename{
+	position: absolute;
+	top: 500px;
+	left: 750px;
+}
+#Add{
+	position: absolute;
+	top: 500px;
+	left: 950px;
+}
+#Update{
+	position: absolute;
+	top: 500px;
+	left: 1150px;
+}
+#Drop{
+	position: absolute;
+	top: 580px;
+	left: 950px;
+}
+.ui-dialog-titlebar {
+	background-color: steelblue;
+	color: white;
+}
+#Renamedetails {
+	background-color: #D7D1F8;
+}
+
+#Adddetails {
+	background-color: #D7D1F8;
+}
+
+#Updatedetails {
+	background-color: #D7D1F8;
+}
+
+#Dropdetails {
+	background-color: #D7D1F8;
+}
+#flashmessages {
+	position: absolute;
+	top: 600px;
+	left: 500px;
+	color:#ff925e;
+}
+#renameQuery{
+	width:550px;
+	height:60px;
+}
+#addQuery{
+	width:550px;
+	height:60px;
+}
+#updateQuery{
+	width:550px;
+	height:60px;
+}
+#dropQuery{
+	width:550px;
+	height:60px;
+}
+#submit{
+	position: absolute;
+	top: -10px;
+	left: 300px;
+}
